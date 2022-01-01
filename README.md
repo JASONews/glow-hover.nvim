@@ -26,7 +26,7 @@ EOF
 ```
 
 ## Limitation
-This plugin only supports Neovim on linux or MacOS.
+This plugin only supports Neovim on Linux or MacOS.
 
 ## Acknowledgement
 This plugin is inspired by [glow.nvim](https://github.com/ellisonleao/glow.nvim)
