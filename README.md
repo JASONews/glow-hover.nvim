@@ -19,8 +19,8 @@ lua << EOF
         -- The followings are the default values
         max_width = 50,
         padding = 10,
-        opts.border = 'shadow',
-        opts.glow_path = 'glow'
+        border = 'shadow',
+        glow_path = 'glow'
     }
 EOF
 ```
