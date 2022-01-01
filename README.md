@@ -1,4 +1,4 @@
-# glow-hover
+# glow-hover.nvim
 Leverage [glow](https://github.com/charmbracelet/glow) to display LSP hover responses.
 
 ## Demo
