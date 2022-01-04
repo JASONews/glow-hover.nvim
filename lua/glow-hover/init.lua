@@ -38,6 +38,31 @@ local function close_preview_autocmd(events, winnr, bufnrs)
   end
 end
 
+function M.set_boarder_highlight_autocmd(background, winnr)
+    local augroup = 'preview_window_' .. winnr
+    if vim.fn.hlexists('HoverFloatBorder') ~= 1 then
+        if background == 'light' then
+            vim.cmd(string.format([[
+            augroup %s
+            autocmd BufWinEnter * hi! FloatBorder ctermbg=None ctermfg=39
+            augroup end
+            ]], augroup))
+        elseif background == 'dark' then
+            vim.cmd(string.format([[
+            augroup %s
+            autocmd BufWinEnter * hi! FloatBorder ctermbg=None ctermfg=239
+            augroup end
+            ]], augroup))
+        end
+    else
+            vim.cmd(string.format([[
+            augroup %s
+            autocmd BufWinEnter * hi! link FloatBorder HoverFloatBorder
+            augroup end
+            ]], augroup))
+    end
+end
+
 -- Most are Borrowed from nvim.lsp.util
 function M.close_preview_window(winnr, bufnrs)
   vim.schedule(function()
@@ -112,9 +137,12 @@ function M.open_floating_term(contents, opts)
   local width, height = lsputil._make_floating_popup_size(contents)
   local float_opts = lsputil.make_floating_popup_options(math.min(width,
     opts.width), height)
+  float_opts.border = opts.border
+
   local bufnr = api.nvim_get_current_buf()
   local parent_winnr = api.nvim_get_current_win()
   local floating_bufnr = api.nvim_create_buf(false, true)
+  M.set_boarder_highlight_autocmd(opts.background, floating_bufnr)
   local floating_winnr = api.nvim_open_win(floating_bufnr, true, float_opts)
 
   local tfn = os.tmpname()
@@ -157,8 +185,10 @@ function M.hovehandler(markdown_lines, opts)
     maxstrwidth = math.max(vim.fn.strdisplaywidth(line), maxstrwidth)
     lines = lines .. line .. '\n'
   end
-  opts.width = math.min(maxstrwidth + opts.padding, opts.max_width)
   local colorscheme = api.nvim_get_option('background')
+  opts.background = colorscheme
+  opts.width = math.min(maxstrwidth + opts.padding, opts.max_width)
+
 
   local tfn = os.tmpname()
   local tf = io.open(tfn, 'w')
