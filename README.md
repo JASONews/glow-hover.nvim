@@ -24,6 +24,10 @@ lua << EOF
     }
 EOF
 ```
+To update border highlight colors:
+```vim
+highlight! HoverFloatBorder ctermbg=None ctermfg=255
+```
 
 ## Limitation
 This plugin only supports Neovim on Linux or MacOS.

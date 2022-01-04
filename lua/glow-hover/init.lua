@@ -44,7 +44,7 @@ function M.set_boarder_highlight_autocmd(background, winnr)
         if background == 'light' then
             vim.cmd(string.format([[
             augroup %s
-            autocmd BufWinEnter * hi! FloatBorder ctermbg=None ctermfg=39
+            autocmd BufWinEnter * hi! FloatBorder ctermbg=None ctermfg=37
             augroup end
             ]], augroup))
         elseif background == 'dark' then
