@@ -213,6 +213,11 @@ function M.hovehandler(markdown_lines, opts)
 end
 
 function M.setup(opts)
+  if not vim.fn.executable('glow') then
+    print("The Glow binary is missing from your PATH.")
+    return
+  end
+  
   opts = opts or {}
   opts.padding = opts.padding or 10
   opts.border = opts.border or 'shadow'
