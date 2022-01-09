@@ -185,7 +185,7 @@ function M.hovehandler(markdown_lines, opts)
     maxstrwidth = math.max(vim.fn.strdisplaywidth(line), maxstrwidth)
     lines = lines .. line .. '\n'
   end
-  local colorscheme = api.nvim_get_option('background')
+  local colorscheme = api.nvim_get_option('background') == 'light' and 'light' or 'dark'
   opts.background = colorscheme
   opts.width = math.min(maxstrwidth + opts.padding, opts.max_width)
 
